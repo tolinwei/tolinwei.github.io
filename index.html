@@ -133,7 +133,7 @@
             background: linear-gradient(135deg, #6366F1, #EC4899, #8B5CF6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            white-space: nowrap;
+            white-space: nowrap; /* 在桌面版本保持不换行 */
             max-width: 100%;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -174,6 +174,10 @@
             background: linear-gradient(to right, #6366F1, #EC4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+        
+        .contact-form .section-title {
+            font-size: 2rem;
         }
 
         .section-subtitle {
@@ -320,6 +324,14 @@
             .section-title {
                 font-size: 2rem;
             }
+            
+            .contact-form .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .cta h2 {
+                font-size: 1.8rem !important;
+            }
 
             .section-subtitle {
                 font-size: 1rem;
@@ -359,6 +371,9 @@
             }
             .hero h1 {
                 font-size: 2.5rem;
+                white-space: normal;
+                overflow: visible;
+                text-overflow: unset;
             }
 
             .services-grid {
@@ -445,7 +460,7 @@
 
     <section id="contact" class="cta">
         <div class="container">
-            <h2>Ready to Accelerate Your Digital Journey?</h2>
+            <h2 style="background: linear-gradient(to right, #8B5CF6, #EC4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.2rem;">Transform Your Business with Our Solutions</h2>
             <div class="contact-form">
                 <h2 class="section-title">Contact Us</h2>
                 <form id="contactForm">
@@ -471,7 +486,7 @@
                         <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
                     </div>
                     <div id="formStatus" style="margin-bottom: 1rem; color: var(--accent-pink); display: none;"></div>
-                    <button type="submit" id="submitButton" class="button" style="backdrop-filter: blur(12px); border: 1px solid var(--glass-border);">Get Started Today</button>
+                    <button type="submit" id="submitButton" class="button" style="backdrop-filter: blur(12px); border: 1px solid var(--glass-border); font-size: 0.9rem;">Submit</button>
                 </form>
                 
                 <!-- EmailJS SDK -->
