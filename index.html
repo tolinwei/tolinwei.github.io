@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startbeam Digital - GPU Compute Power & AI Solutions</title>
+    <style>
+        :root {
+            --deep-blue: #1E2B3D;
+            --accent-blue: #6366F1;
+            --accent-pink: #EC4899;
+            --accent-purple: #8B5CF6;
+            --text-light: #F3F4F6;
+            --text-gray: #9CA3AF;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--deep-blue);
+            background-image: 
+                radial-gradient(at 40% 20%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 80% 0%, rgba(236, 72, 153, 0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            background: rgba(30, 43, 61, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-purple);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-pink));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav-links a:last-child {
+            font-weight: 600;
+        }
+
+        .nav-button:hover {
+            border-color: var(--accent-blue);
+            background: var(--accent-blue);
+            color: white !important;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.75rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #6366F1, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #6366F1, #EC4899, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            white-space: nowrap;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: -0.02em;
+            font-weight: 800;
+            text-shadow: 0 4px 8px rgba(236, 72, 153, 0.2);
+            position: relative;
+            animation: heroGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes heroGlow {
+            0%, 100% { text-shadow: 0 4px 8px rgba(236, 72, 153, 0.2); }
+            50% { text-shadow: 0 4px 16px rgba(99, 102, 241, 0.4); }
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services {
+            padding: 6rem 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #6366F1, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+        }
+
+        .service-card {
+            background: var(--glass-bg);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px var(--glass-shadow);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.2);
+        }
+
+        .service-card h3 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #8B5CF6;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--text-gray);
+        }
+
+        .cta {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(rgba(30, 43, 61, 0.8), rgba(30, 43, 61, 0.8)), 
+                       url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%231E2B3D"/><path d="M0 50 L100 50 M50 0 L50 100" stroke="%238B5CF6" stroke-width="0.5" stroke-opacity="0.1"/></svg>');
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 2rem auto 0;
+            padding: 2rem;
+            background: var(--glass-bg);
+            border-radius: 1rem;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-pink));
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            position: absolute;
+            left: -9999px;
+            height: 1px;
+            width: 1px;
+            overflow: hidden;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+        }
+        
+
+
+        .form-group select option {
+            background: var(--deep-blue);
+            color: var(--text-light);
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .button:hover {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-gray);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            header {
+                padding: 1rem 0;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 4rem 0;
+            }
+
+            .services, .why-us {
+                padding: 4rem 0;
+            }
+
+            .cta {
+                padding: 3rem 0;
+            }
+
+            .service-card {
+                padding: 1.5rem;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="url(#logoGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="url(#logoGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="url(#logoGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="logoGradient" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#6366F1" />
+                            <stop offset="100%" stop-color="#EC4899" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span class="logo-text">Startbeam Digital</span>
+            </a>
+                <div class="nav-links">
+                    <a href="#services">Services</a>
+                    <a href="#advantages">Advantages</a>
+                    <a href="#contact">Contact Us</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Digital Innovation Accelerated</h1>
+            <p>Unleash the potential of GPU computing, AI inference, and crypto mining with our cutting-edge infrastructure and solutions.</p>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Comprehensive solutions for your digital infrastructure needs</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Cloud GPU Rental</h3>
+                    <p>Access virtualized GPU clusters on-demand for your computational needs. Scale your operations with our state-of-the-art infrastructure.</p>
+                </div>
+                <div class="service-card">
+                    <h3>AI Inference</h3>
+                    <p>Deploy and scale your AI models with lightning-fast inference capabilities. Optimize performance and reduce latency with our specialized solutions.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Crypto Mining</h3>
+                    <p>Leverage our efficient mining infrastructure for cryptocurrency operations. Benefit from our optimized setups and competitive energy costs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="advantages" class="why-us">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem; background: linear-gradient(to right, #6366F1, #EC4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Our Advantages</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Next-gen Technology</h3>
+                    <p>Access the latest GPU hardware and infrastructure optimized for maximum performance and efficiency.</p>
+                </div>
+
+                <div class="service-card">
+                    <h3>Competitive Pricing</h3>
+                    <p>Transparent pricing with no hidden fees, offering some of the most competitive rates in the industry.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Scalable Solutions</h3>
+                    <p>Easily scale your resources up or down based on your needs, with no long-term commitments required.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="cta">
+        <div class="container">
+            <h2>Ready to Accelerate Your Digital Journey?</h2>
+            <div class="contact-form">
+                <h2 class="section-title">Contact Us</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Service</label>
+                        <select id="service" name="service" required>
+                            <option value="" disabled selected>Select Service</option>
+                            <option value="Cloud GPU Rental">Cloud GPU Rental</option>
+                            <option value="AI Inference">AI Inference</option>
+                            <option value="Crypto Mining">Crypto Mining</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <div id="formStatus" style="margin-bottom: 1rem; color: var(--accent-pink); display: none;"></div>
+                    <button type="submit" id="submitButton" class="button" style="backdrop-filter: blur(12px); border: 1px solid var(--glass-border);">Get Started Today</button>
+                </form>
+                
+                <!-- EmailJS SDK -->
+                <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+                
+                <script>
+                    // Initialize EmailJS
+                    (function() {
+                        // IMPORTANT: Replace "YOUR_PUBLIC_KEY" with your actual EmailJS public key
+                        // To set up EmailJS:
+                        // 1. Create an account at https://www.emailjs.com/
+                        // 2. Create an email service (e.g., Gmail, Outlook)
+                        // 3. Create an email template with variables: {{to_email}}, {{from_name}}, {{from_email}}, {{service}}, {{message}}
+                        // 4. Get your public key from the EmailJS dashboard
+                        emailjs.init("YOUR_PUBLIC_KEY");
+                    })();
+                    
+                    // Form submission handler
+                    document.getElementById('contactForm').addEventListener('submit', function(event) {
+                        event.preventDefault();
+                        
+                        // Check rate limit
+                        if (isRateLimited()) {
+                            showStatus('You can only send one message every 10 minutes. Please try again later.', 'error');
+                            return;
+                        }
+                        
+                        // Disable submit button
+                        const submitButton = document.getElementById('submitButton');
+                        const originalButtonText = submitButton.textContent;
+                        submitButton.disabled = true;
+                        submitButton.textContent = 'Sending...';
+                        showStatus('Sending your message...', 'success');
+                        
+                        // Get form data
+                        const name = document.getElementById('name').value;
+                        const email = document.getElementById('email').value;
+                        const service = document.getElementById('service').value;
+                        const message = document.getElementById('message').value;
+                        
+                        // Prepare template parameters
+                        const templateParams = {
+                            to_email: 'info@starbeamdigital.com',
+                            from_name: name,
+                            from_email: email,
+                            service: service,
+                            message: message,
+                            subject: `New inquiry about ${service} from ${name}`
+                        };
+                        
+                        // Send email using EmailJS
+                        // IMPORTANT: Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your actual EmailJS service and template IDs
+                        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+                            .then(function() {
+                                // Set rate limit
+                                setRateLimit();
+                                
+                                // Show success message
+                                showStatus('Your message has been sent successfully! We will get back to you soon.', 'success');
+                                
+                                // Reset form
+                                document.getElementById('contactForm').reset();
+                                
+                                // Start countdown for next submission
+                                const rateLimitDuration = 10 * 60 * 1000; // 10 minutes
+                                startCountdown(rateLimitDuration);
+                            })
+                            .catch(function(error) {
+                                console.error('Email sending failed:', error);
+                                showStatus('Failed to send message. Please try again later.', 'error');
+                                
+                                // Re-enable submit button
+                                submitButton.disabled = false;
+                                submitButton.textContent = originalButtonText;
+                            });
+                    });
+                    
+                    // Rate limiting functions
+                    function isRateLimited() {
+                        const lastSubmissionTime = localStorage.getItem('lastFormSubmission');
+                        if (!lastSubmissionTime) return false;
+                        
+                        const currentTime = new Date().getTime();
+                        const timeDifference = currentTime - parseInt(lastSubmissionTime);
+                        
+                        // 10 minutes in milliseconds
+                        const rateLimitDuration = 10 * 60 * 1000;
+                        
+                        if (timeDifference < rateLimitDuration) {
+                            // Start countdown timer
+                            startCountdown(rateLimitDuration - timeDifference);
+                            return true;
+                        }
+                        
+                        return false;
+                    }
+                    
+                    function setRateLimit() {
+                        const currentTime = new Date().getTime();
+                        localStorage.setItem('lastFormSubmission', currentTime.toString());
+                    }
+                    
+                    function startCountdown(remainingTime) {
+                        const submitButton = document.getElementById('submitButton');
+                        submitButton.disabled = true;
+                        
+                        // Update countdown every second
+                        const countdownInterval = setInterval(() => {
+                            remainingTime -= 1000;
+                            
+                            if (remainingTime <= 0) {
+                                // Reset button when countdown is complete
+                                clearInterval(countdownInterval);
+                                submitButton.textContent = 'Get Started Today';
+                                submitButton.disabled = false;
+                                document.getElementById('formStatus').style.display = 'none';
+                                return;
+                            }
+                            
+                            // Format remaining time
+                            const minutes = Math.floor(remainingTime / 60000);
+                            const seconds = Math.floor((remainingTime % 60000) / 1000);
+                            const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                            
+                            // Update button text with countdown
+                            submitButton.textContent = `Try again in ${formattedTime}`;
+                        }, 1000);
+                    }
+                    
+                    // Check if rate limited on page load
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const lastSubmissionTime = localStorage.getItem('lastFormSubmission');
+                        if (lastSubmissionTime) {
+                            const currentTime = new Date().getTime();
+                            const timeDifference = currentTime - parseInt(lastSubmissionTime);
+                            const rateLimitDuration = 10 * 60 * 1000;
+                            
+                            if (timeDifference < rateLimitDuration) {
+                                showStatus('You can only send one message every 10 minutes.', 'error');
+                                startCountdown(rateLimitDuration - timeDifference);
+                            }
+                        }
+                    });
+                    
+                    function showStatus(message, type) {
+                        const statusElement = document.getElementById('formStatus');
+                        statusElement.textContent = message;
+                        statusElement.style.display = 'block';
+                        
+                        if (type === 'error') {
+                            statusElement.style.color = '#EC4899';
+                        } else {
+                            statusElement.style.color = '#8B5CF6';
+                        }
+                        
+                        // Auto-hide after 5 seconds for success messages
+                        if (type === 'success') {
+                            setTimeout(() => {
+                                statusElement.style.display = 'none';
+                            }, 5000);
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Startbeam Digital. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
