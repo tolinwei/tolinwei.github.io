@@ -65,15 +65,16 @@
         }
 
         .nav-links a {
-            color: var(--text-light);
+            color: var(--text-gray);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             position: relative;
         }
 
         .nav-links a:hover {
-            color: var(--accent-purple);
+            color: var(--accent-blue);
+            transform: translateY(-1px);
         }
 
         .nav-links a::after {
@@ -159,6 +160,10 @@
         .services {
             padding: 6rem 0;
         }
+        
+        .why-us {
+            padding: 6rem 0 8rem 0;
+        }
 
         .services-grid {
             display: grid;
@@ -176,9 +181,7 @@
             -webkit-text-fill-color: transparent;
         }
         
-        .contact-form .section-title {
-            font-size: 2rem;
-        }
+        /* .contact-form .section-title rule moved to media queries section */
 
         .section-subtitle {
             text-align: center;
@@ -283,7 +286,7 @@
             color: var(--text-light);
         }
 
-        .cta h2 {
+        .cta h2:not(.section-title) {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
         }
@@ -292,19 +295,19 @@
             display: inline-block;
             background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
             color: white;
-            padding: 1rem 2rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 0.5rem;
             text-decoration: none;
             font-weight: 500;
+            font-size: 1rem;
             transition: all 0.3s ease;
             position: relative;
-            z-index: 1;
-            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .button:hover {
             background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
-            transform: translateY(-2px);
+            transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
         }
 
@@ -325,8 +328,9 @@
                 font-size: 2rem;
             }
             
-            .contact-form .section-title {
-                font-size: 1.5rem;
+            .contact-form h2.section-title {
+                font-size: 1rem !important;
+                /* Updated: Force browser refresh */
             }
             
             .cta h2 {
@@ -359,7 +363,7 @@
             }
 
             .services, .why-us {
-                padding: 4rem 0;
+                padding: 4rem 0 6rem 0;
             }
 
             .cta {
@@ -402,7 +406,7 @@
             </a>
                 <div class="nav-links">
                     <a href="#services">Services</a>
-                    <a href="#advantages">Advantages</a>
+                    <a href="#advantages">Benefits</a>
                     <a href="#contact">Contact Us</a>
                 </div>
             </nav>
@@ -439,7 +443,7 @@
 
     <section id="advantages" class="why-us">
         <div class="container">
-            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem; background: linear-gradient(to right, #6366F1, #EC4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Our Advantages</h2>
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem; background: linear-gradient(to right, #6366F1, #EC4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Competitive Edge</h2>
             <div class="services-grid">
                 <div class="service-card">
                     <h3>Next-gen Technology</h3>
@@ -462,7 +466,7 @@
         <div class="container">
             <h2 style="background: linear-gradient(to right, #8B5CF6, #EC4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.2rem;">Transform Your Business with Our Solutions</h2>
             <div class="contact-form">
-                <h2 class="section-title">Contact Us</h2>
+                <h2 class="section-title" style="font-size: 1.8rem !important;">Contact Us</h2>
                 <form id="contactForm">
                     <div class="form-group">
                         <label for="name">Name</label>
@@ -486,7 +490,7 @@
                         <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
                     </div>
                     <div id="formStatus" style="margin-bottom: 1rem; color: var(--accent-pink); display: none;"></div>
-                    <button type="submit" id="submitButton" class="button" style="backdrop-filter: blur(12px); border: 1px solid var(--glass-border); font-size: 0.9rem;">Submit</button>
+                    <button type="submit" id="submitButton" class="button" style="backdrop-filter: blur(12px); font-weight: 500;">Submit</button>
                 </form>
                 
                 <!-- EmailJS SDK -->
@@ -656,7 +660,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Startbeam Digital. All rights reserved.</p>
+            <p>&copy; 2025 Starbeam Digital. All rights reserved.</p>
         </div>
     </footer>
 </body>
